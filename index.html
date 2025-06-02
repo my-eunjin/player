@@ -4,110 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Music Player</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
   <style>
-    body, div, h2, p, ul, li{   margin:0;  padding:0;  box-sizing:border-box;   }
-    ul{  list-style:none;   }
+    body, div, h2, p, ul, li{margin:0; padding:0; box-sizing:border-box;}
+    ul{list-style:none;}
     :root{
       --pink:#ff74a4;      --violet:#9f6ea3;      --white:#fff;
       --lightshadow:rgba(0,0,0,0.15);      --lightblack:#515c6f;
       --pinkshadow:#ffcbdd;      --darkwhite:#cecaca;
       --color-red:#ae1100;   --body-bg:#969aa5;        --play-bg:#dbdcf0;
-      --color-light:#fff;    --color-shadow:#babecc;   --text-color:#616e7f;
+      --color-light:#fff;    --color-shadow:#babecc;   --text-color:#313980;
       --bar-bg:#aec9f8;      --text-size:30px;
     }
-    body{
-      height:100vh;  background:linear-gradient(var(--pink) 0%, var(--violet) 100%);
-      display:flex;  align-items:center;  justify-content:center;
-    }
-    .player_body{
-      width: 360px;  padding:25px 30px;  border-radius:16px;  position:relative;
-      background:var(--play-bg);
-      box-shadow:6px 5px 10px 0px var(--text-color),
-                7px 7px 5px 0px var(--color-light) inset,
-                -7px -7px 5px 0px var(--color-shadow) inset;
-      user-select:none;  /* auto(기본):글자선택 , none:글자선택안됨, text, all(click으로 선택) */
-    }
-    .top{   margin-bottom:25px;  }
-    .top>h2{
-      font-size:var(--text-size);  font-weight:700;  color:var(--text-color);  text-align:center;
-      text-shadow:1px 1px 1px var(--color-light), -1px -1px 1px var(--lightblack);
-      /*
-      background:linear-gradient(0deg, rgba(208,121,54,1) 0%, rgba(255,248,0,1) 100%);
-      color:transparent;  -webkit-background-clip:text; -moz-background-clip:text;  background-clip:text;
-      */
-    }
-    .album{      height:260px;  border-radius:12px;  overflow:hidden;    }
-    .album>img{
-      width:100%;  height:100%;  object-fit:cover;   object-position:center bottom;
-    }
-    .info{
-      text-align:center;  font-size:calc(var(--text-size) * 0.8);  margin:calc(var(--text-size) * 0.5);
-    }
-    .info>.artist{   font-size:calc(var(--text-size) * 0.6);             }
-    .progress{
-      height:8px;  border-radius:8px;  background:var(--play-bg);
-      box-shadow:2px 2px 2px 0px var(--color-shadow) inset,
-                -2px -2px 2px 0px var(--color-light) inset;
-    }
-    .progress>.bar{
-      width:0%;  height:8px;  border-radius:8px;  background:var(--bar-bg);
-      box-shadow:2px 2px 3px 0px var(--color-shadow) inset;
-    }
-    .progress>.timebox{
-      margin-top:8px;  font-size:calc(var(--text-size) * 0.5);
-      display:flex;  justify-content:space-between;
-    }
-    .progress>.timebox>span{
-      color:#151515;  font-weight:600;  text-shadow:1px 1px 0px var(--color-light);
-    }
-    .controls{
-      margin-top:40px;  display:flex;  justify-content:space-between;  align-items:center;
-    }
-    .controls>span{
-      font-size:var(--text-size);   width:40px;  height:40px;  border-radius:50%;
-      background:var(--play-bg);  color:var(--text-color);
-      display:flex;  justify-content:center;  align-items:center;
-      box-shadow:-5px -5px 20px 0px var(--color-light), 5px 5px 20px 0px var(--color-shadow);
-      text-shadow:1px 1px 0px var(--color-light);
-    }
-    .controls>span:hover, .controls>span:active{
-      color:var(--color-red);
-      box-shadow:-3px -3px 5px 0px var(--color-light), 3px 3px 5px 0px var(--color-shadow);
-    }
+    body{height:100vh; background: var(--play-bg); font-family: "Noto Sans KR", sans-serif; display:flex; align-items:center; justify-content: center;}
+    .player_body{width: 360px; padding:25px 30px; border-radius:16px; position:relative; background:var(--play-bg); box-shadow:0px 0px 8px 0px var(--lightblack); user-select:none;}
+    .top{margin-bottom:25px;}
+    .top>h2{font-size:var(--text-size); font-weight:bold; color:var(--text-color); text-align: center;}
+    .album{height:260px; border-radius:12px; overflow:hidden;}
+    .album>img{width:100%; height:100%; object-fit:cover; object-position:center bottom;}
+    .info{text-align:center; font-size:calc(var(--text-size)*0.8); margin:calc(var(--text-size)*0.5);}
+    .info>.name{font-weight: bold; color: var(--text-color);}
+    .info>.artist{font-size:calc(var(--text-size)*0.6);}
+    .progress{height:8px; border-radius:8px; background:var(--play-bg); box-shadow:2px 2px 2px 0px var(--color-shadow) inset, -2px -2px 2px 0px var(--color-light) inset;}
+    .progress>.bar{width:0%; height:8px; border-radius:8px; background:var(--bar-bg); box-shadow:2px 2px 3px 0px var(--color-shadow) inset;}
+    .progress>.timebox{margin-top:8px; font-size:calc(var(--text-size)*0.5); display: flex; justify-content: space-between;}
+    .progress>.timebox>span{color:#151515; font-weight:600; text-shadow:1px 1px 0px var(--color-light);}
+    .controls{margin-top:40px; display:flex; justify-content:space-between; align-items:center;}
+    .controls>span{font-size:var(--text-size); width:40px; height:40px; border-radius:50%; background:var(--play-bg); color:var(--text-color); display:flex; justify-content:center; align-items:center; box-shadow:-5px -5px 20px 0px var(--color-light), 5px 5px 20px 0px var(--color-shadow); text-shadow:1px 1px 0px var(--color-light);}
+    .controls>span:hover, .controls>span:active{color:var(--color-red); box-shadow:-3px -3px 5px 0px var(--color-light), 3px 3px 5px 0px var(--color-shadow);}
 
-    .play_list{
-      position:absolute;  width:300px;  min-height:350px;  background:#090909;   display:none;
-      left:30px;  top:120px;  color:var(--color-light);  padding:20px;  box-sizing:border-box;
-    }
-    .play_list.active{    display:block;   }
-    .play_list li{
-      border-bottom:1px solid var(--color-light);  font-size:16px;  letter-spacing:-1px;
-      padding:5px 0; /* line-height:1.8 */ 
-      display:flex;  justify-content:space-between;  align-items:flex-end;
-    }
-    .play_list li strong{  font-weight:normal;  }
-    .play_list li span{    font-size:12px;      }
+    .play_list{position:absolute; width:300px; min-height:350px; background:#090909; display:none; left:30px; top:93px; color:var(--color-light); padding:20px; box-sizing:border-box;}
+    .play_list.active{display:block;}
+    .play_list li{border-bottom:1px solid var(--color-light); font-size:16px; letter-spacing:-1px; padding:5px 0; display:flex; justify-content:space-between; align-items:flex-end;}
+    .play_list li strong{font-weight:normal;}
+    .play_list li span{font-size:12px;}
     .play_list li.on {color: #fc0; font-weight: bold;}
 
-    .on {display: none;}
-    .volume {position: relative;}
-    .volume>.volumeBg>.volumeBar {width: 100%; position: absolute;}
+
+    .volume {position: relative; text-align: right;}
+    .volume>#volume_btn {cursor: pointer;}
+    .volume>#volume_btn.open {color: rgba(216,196,64,0.8);}
+    .volume>#volume_ctrl {width: 30px; height: 135px; background: rgba(90,40,6,0.6); border-radius: 7px; position: absolute; right: 0; bottom: 28px;}
+    .volume>#volume_ctrl.hidden {display: none;}
+    .volume .volumebg {width: 6px; height: 90%; border-radius: 3px; background: rgba(255,255,255,0.4); position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); overflow: hidden;}
+    .volume .volumerange {width: 121px; position: absolute; right: 1px; top: -4px; background: transparent; transform-origin: center right; transform: rotate(270deg); overflow: hidden; cursor: pointer; z-index: 99999; appearance: none; -webkit-appearance: none;}
+    .volume .volumerange:focus {outline: none;}
+    .volume .volumerange::-webkit-slider-runnable-track {width: 100%; height: 100%; cursor: pointer; border-radius: 3px;}
+    .volume .volumerange::-webkit-slider-thumb {-webkit-appearance: none; width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: -100vw 0 0 100vw #9ebdcb;}
+
   </style>
 </head>
 <body>
   <div class="player_body">
     <div class="top">
-      <h2>NEUMORPHISM MUSIC PLAYER</h2>
+      <h2>MUSIC PLAYER</h2>
     </div>
     <div class="album">
       <img src="images/album1.jpg" alt="">
     </div>
-    <div class="volume on">
-      <span class="volumeBg">
-        <input type="range" min="0" max="50" value="10" step="2" class="volumeBar"/>
-      </span>
+    <div class="volume">
+      <span id="volume_btn" class="material-icons">volume_up</span>
+      <div id="volume_ctrl" class="hidden">
+          <div class="volumebg">
+            <div class="volumerange">
+                <input type="range" min="0" max="100" value="10" step="2" class="volumebar"/>
+              </div>
+          </div>
+      </div>
     </div>
     <div class="info">
       <p class="name">Alone</p>
@@ -129,7 +93,6 @@
       <span id="prevBtn" class="material-icons">skip_previous</span>
       <span id="playBtn" class="material-icons">play_arrow</span> <!-- pause -->
       <span id="nextBtn" class="material-icons">skip_next</span>
-      <span id="volumeBtn" class="material-icons">volume_up</span>
       <span id="listBtn" class="material-icons">queue_music</span>
     </div>
   </div>
@@ -151,15 +114,13 @@
     const nextBtn = musicApp.querySelector('#nextBtn');
     let list_index = 0;
 
-    const loadMusic=(num)=>{ // music list 배열순번 정의 인자(매개변수) : num
-      //파일경로, 이미지경로, 음악이름, 아티스트이름, 전체시간 출력
+    const loadMusic=(num)=>{
       musicAudio.src = `./songs/${musicList[num].audio}.mp3`;
       albumImg.src = `./images/${musicList[num].img}.jpg`;
       musicName.innerHTML = musicList[num].name;
       artistName.innerHTML = musicList[num].artist;
       totalTime.innerHTML = musicList[num].total;
     }
-    //list_index=3;
     loadMusic(list_index); 
     const musicPlay =()=>{
       musicAudio.play();
@@ -171,7 +132,6 @@
     }
     playBtn.addEventListener('click', ()=>{      
       (playBtn.innerText==='play_arrow') ? musicPlay():musicPause();
-      /*  if(playBtn.innerText==='play_arrow'){ musicPlay() }else{  musicPause()    } */
     });
 
     const prevMusic = () =>{
@@ -216,7 +176,7 @@
     });
 
     progressive.addEventListener('click', (e)=>{
-      let clickPosition = e.offsetX;  // console.log( e.pageX, e.offsetX )
+      let clickPosition = e.offsetX;
       let maxWidth = progressive.clientWidth;  
       musicAudio.currentTime = ( clickPosition/maxWidth )*musicAudio.duration;
       if( playBtn.innerHTML === 'play_arrow'){
@@ -238,10 +198,7 @@
           break;
       }
     })
-    /* 음악이 재생이 끝날때 repeatBtn 글자가 repeat , repeat_one 구분
-      mainAudio   'ended'    if( ==='repeat')  else if( ==='repeat_one')
-    repeat인 경우 : 다음음악 재생    nextMusic()  -- list_index++
-    repeat_one인 경우 : 현재음악 재생(새롭게)   loadMusic(list_index)   , play() */
+
     musicAudio.addEventListener('ended', ()=>{
       let getRepeatState = repeatBtn.innerHTML;
       if( getRepeatState==='repeat' ){
@@ -251,10 +208,7 @@
         musicPlay();
       }
     })
-    /*
-      data 배열 load --  li 만들고    <strong> list.name </strong> <span> list.artist </span>  
-      내용이 담긴 li요소를 ul안에 삽입
-    */
+
     const listBox = musicApp.querySelector('.play_list');
     const listBtn = musicApp.querySelector('#listBtn');
     listBtn.addEventListener('click', ()=>{
@@ -262,21 +216,24 @@
     });
     
     const listLoad = () =>{
-      const fragment = document.createDocumentFragment(); // 가상 DOM개체
-      /*
-        for(let i=0; i<musicList.length; i++){
-          let li = document.createElement('li');
-          li.innerHTML = `<strong>${musicList[i].name}</strong><span>${musicList[i].artist}</span>`
-          fragment.appendChild(li);
-        }
-      */
-      musicList.forEach((music)=>{
+      const fragment = document.createDocumentFragment();
+
+      musicList.forEach((music,i)=>{
         let li = document.createElement('li');
+        li.setAttribute('data-index', i);
         li.innerHTML = `<strong>${music.name}</strong><span>${music.artist}</span>`;
-        li.addEventListener('click', ()=>{
-          const allList = listBox.querySelectorAll('ul li'); //모든 li요소에 .on 삭제
-          allList.forEach(listItem => listItem.classList.remove('on')); //li요소에 .on 추가
+        
+        if(list_index===li.getAttribute('data-index')){
           li.classList.add('on');
+        }
+
+        li.addEventListener('click', ()=>{
+          let list_index = e.currentTarget.dataset.index;
+          const allList = listBox.querySelectorAll('ul li');
+          allList.forEach(listItem => listItem.classList.remove('on'));
+          li.classList.add('on');
+          loadMusic(list_index);
+          musicPlay();
         });
         fragment.appendChild(li);
       });
@@ -284,17 +241,25 @@
     }
     listLoad();
 
-    const volumeBg = document.querySelector('.volumeBg');
-    const volumeBar = document.querySelector('.volumeBar');
-    const volumeBtn = document.querySelector('#volumeBtn');
-    const volumeBox = document.querySelector('.volume');
-    const range = document.querySelector('input[type="range"]');
-
-    volumeBtn.addEventListener('click',()=>{
-      volumeBox.classList.toggle('on');
+    const volumeBtn = musicApp.querySelector('#volume_btn');
+    const volumeCtrl = musicApp.querySelector('#volume_ctrl');
+    const volumeRange = musicApp.querySelector('#volumerange');
+    musicAudio.volume = 0.5;
+    volumeBtn.addEventListener('click', (e)=>{
+      e.target.classList.toggle('open');
+      volumeCtrl.classList.toggle('hidden');
     });
-    range.addEventListener('change',()=>{
-      music.volume=range.value/100
+    volumeRange.addEventListener('change', (e)=>{
+      let oriVol = musicAudio.volume;
+      musicAudio.volume = volumeRange.value/100;
+      let currVol = musicAudio.volume;
+      if(currVol===0){
+        volumeBtn.innerHTML = 'volume_off';
+      }else if(oriVol <= currVol){
+        volumeBtn.innerHTML = 'volume_up';
+      }else{
+        volumeBtn.innerHTML = 'volume_down';
+      }
     });
   </script>
 </body>
